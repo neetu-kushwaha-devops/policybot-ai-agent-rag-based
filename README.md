@@ -682,7 +682,7 @@ This project is for portfolio and interview demonstration purposes.
 - **ReDoc**: http://localhost:8000/redoc
 
 ### Contact
-- **GitHub**: https://github.com/neetu-kushwaha-devops/policybot-ai-agent
+- **GitHub**: https://github.com/neetu-kushwaha-devops/policybot-ai-agent-rag-based
 
 - **Author**: Neetu
 ---
