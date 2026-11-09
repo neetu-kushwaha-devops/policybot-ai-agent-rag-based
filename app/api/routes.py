@@ -54,7 +54,7 @@ async def ask_question(request: Request, body: AskRequest) -> AskResponse:
         
         # Process query with agent
         response = await agent.process_query(
-            query=request.query,
+            query=body.query,
             session_id=body.session_id
         )
         
@@ -84,8 +84,8 @@ async def ask_question_detailed(request: Request, body: AskRequest) -> DetailedA
     """Get detailed response with more metadata."""
     try:
         response = await agent.process_query(
-            query=request.query,
-            session_id=request.session_id
+            query=body.query,
+            session_id=body.session_id
         )
         
         metadata = response.get("metadata", {})
