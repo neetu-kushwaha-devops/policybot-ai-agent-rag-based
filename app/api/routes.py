@@ -5,7 +5,6 @@ FastAPI routes for the AI Agent API.
 from fastapi import APIRouter, Depends, HTTPException, Request, status
 from slowapi import Limiter
 from slowapi.util import get_remote_address
-from typing import Optional
 import logging
 
 from app.models.schemas import (
