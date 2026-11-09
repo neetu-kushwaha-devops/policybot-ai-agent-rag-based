@@ -13,10 +13,8 @@ from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 
 from app.api.security import validate_security_config, verify_api_key
-from app.api.routes import limiter, public_router
-
+from app.api.routes import limiter, public_router, router
 from app.config import settings
-from app.api.routes import router
 from app.agents.memory import memory
 
 # Configure logging
