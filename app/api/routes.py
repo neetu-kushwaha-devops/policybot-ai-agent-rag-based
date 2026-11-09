@@ -40,7 +40,7 @@ public_router = APIRouter()
     }
 )
 @limiter.limit(f"{settings.rate_limit_per_minute}/minute")
-async def ask_question(http_request: Request, request: AskRequest) -> AskResponse:
+async def ask_question(request: Request, body: AskRequest) -> AskResponse:
     """
     Main endpoint for asking questions to the AI agent.
     
@@ -50,12 +50,12 @@ async def ask_question(http_request: Request, request: AskRequest) -> AskRespons
     3. Maintain conversation context if session_id is provided
     """
     try:
-        logger.info(f"Received query: {request.query[:100]}")
+        logger.info(f"Received query: {body.query[:100]}")
         
         # Process query with agent
         response = await agent.process_query(
             query=request.query,
-            session_id=request.session_id
+            session_id=body.session_id
         )
         
         return AskResponse(
@@ -80,7 +80,7 @@ async def ask_question(http_request: Request, request: AskRequest) -> AskRespons
     description="Get a detailed response including processing time and method used"
 )
 @limiter.limit(f"{settings.rate_limit_per_minute}/minute")
-async def ask_question_detailed(http_request: Request, request: AskRequest) -> DetailedAskResponse:
+async def ask_question_detailed(request: Request, body: AskRequest) -> DetailedAskResponse:
     """Get detailed response with more metadata."""
     try:
         response = await agent.process_query(
@@ -158,7 +158,7 @@ async def readiness_check():
     description="Get information about a conversation session"
 )
 @limiter.limit(f"{settings.rate_limit_per_minute}/minute")
-async def get_session(http_request: Request, session_id: str) -> SessionInfo:
+async def get_session(request: Request, session_id: str) -> SessionInfo:
     """Get session information."""
     session_info = await agent.get_session_info(session_id)
     
@@ -177,6 +177,6 @@ async def get_session(http_request: Request, session_id: str) -> SessionInfo:
     description="Get statistics about the agent and memory usage"
 )
 @limiter.limit(f"{settings.rate_limit_per_minute}/minute")
-async def get_stats(http_request: Request):
+async def get_stats(request: Request):
     """Get agent statistics."""
     return agent.get_stats()
